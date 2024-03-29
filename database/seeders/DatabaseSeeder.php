@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingWebSeeder::class,
             FilmTerbaruSeeder::class,
-            KategoriSeeder::class
+            KategoriSeeder::class,
+            UserSeeder::class
         ]);
     }
 }

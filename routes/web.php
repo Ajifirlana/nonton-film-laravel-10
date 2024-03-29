@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\KategoriController;
+use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\TentangController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +34,12 @@ Route::controller(KategoriController::class)->group(function() {
  
 Route::controller(TentangController::class)->group(function() {
     Route::get('/tentang', 'index')->name('index');
+ });
+ 
+Route::controller(LoginController::class)->group(function() {
+    Route::get('/login', 'index')->name('index');
+ });
+ 
+Route::controller(AuthController::class)->group(function() {
+    Route::post('/proses_login', 'proses_login')->name('proses_login');
  });
