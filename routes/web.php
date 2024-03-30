@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\KategoriController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -42,4 +43,10 @@ Route::controller(LoginController::class)->group(function() {
  
 Route::controller(AuthController::class)->group(function() {
     Route::post('/proses_login', 'proses_login')->name('proses_login');
+ });
+
+ //dashboard
+ 
+Route::controller(DashboardController::class)->group(function() {
+    Route::get('/dashboard', 'index')->name('index');
  });

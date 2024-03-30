@@ -25,18 +25,12 @@ class AuthController extends Controller
                   return redirect()->intended('user');
               }
             
-              //return redirect()->intended('/');
-              return redirect('login')
-              ->withInput()
-              ->withErrors(['login_gagal'=>'Login Berhasil']);
-  
+              return redirect()->intended('/dashboard');
           }
   
           return redirect('login')
               ->withInput()
               ->withErrors(['login_gagal'=>'These credentials does not match our records']);
-  
-  
   
        }
 }
