@@ -6,3 +6,7 @@ website nonton film gratis
 - install composer dengan menjalankan perintah "composer install"
 - jalankan perintah "php artisan migrate:fresh"
 - jalankan perintah "php artisan serve"
+#donasi ke rek
+BANK PERMATA
+9933738326
+  a.n AJI FIRLANA
