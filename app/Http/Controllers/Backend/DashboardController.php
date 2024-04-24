@@ -12,7 +12,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('backend.home.index');
+        $data['judul_halaman'] = "Beranda";
+        return view('backend.home.index',$data);
+    }
+    public function video()
+    {
+        echo "oke";
+      //  return view('backend.home.index');
     }
 
     /**

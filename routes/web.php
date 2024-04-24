@@ -48,5 +48,6 @@ Route::controller(AuthController::class)->group(function() {
  //dashboard
  
 Route::controller(DashboardController::class)->group(function() {
-    Route::get('/dashboard', 'index')->name('index');
+    Route::get('/dashboard', 'index')->name('index'); 
+    Route::get('/data_video', 'video')->name('video');
  });
