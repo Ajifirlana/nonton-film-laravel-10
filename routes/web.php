@@ -50,4 +50,5 @@ Route::controller(AuthController::class)->group(function() {
 Route::controller(DashboardController::class)->group(function() {
     Route::get('/dashboard', 'index')->name('index'); 
     Route::get('/data_video', 'video')->name('video');
+    Route::get('/play/{slug}', 'play')->name('play');
  });

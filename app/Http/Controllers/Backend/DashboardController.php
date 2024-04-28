@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\FilmTerbaru;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,8 +18,16 @@ class DashboardController extends Controller
     }
     public function video()
     {
-        echo "oke";
-      //  return view('backend.home.index');
+        
+        $data['film_terbaru']=   FilmTerbaru::all();
+        $data['judul_halaman'] = "Data Video";
+       return view('backend.video.index',$data);
+    }
+    public function play($slug)
+    {
+        $data['row'] = FilmTerbaru::where('slug', $slug)->firstOrFail();
+        $data['judul_halaman'] =$data['row']->judul_film;
+       return view('backend.video.play',$data);
     }
 
     /**
