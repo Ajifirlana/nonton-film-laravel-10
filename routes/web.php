@@ -41,8 +41,9 @@ Route::controller(LoginController::class)->group(function() {
     Route::get('/login', 'index')->name('index');
  });
  
-Route::controller(AuthController::class)->group(function() {
+Route::controller(LoginController::class)->group(function() {
     Route::post('/proses_login', 'proses_login')->name('proses_login');
+   
  });
 
  //dashboard
