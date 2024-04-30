@@ -7,7 +7,8 @@ website nonton film gratis di kembangkan oleh aji firlana 089531941653
 - jalankan perintah "php artisan migrate:fresh"
 - jalankan perintah "php artisan serve"
 #API
-url: http://nonton-film-laravel-10.test/api/login_api
+url-login: http://nonton-film-laravel-10.test/api/login_api
+url-data-film: http://nonton-film-laravel-10.test/api/data_film
 # Donasi ke rek
 BANK PERMATA
 9933738326
