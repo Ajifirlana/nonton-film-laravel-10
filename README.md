@@ -6,7 +6,7 @@ website nonton film gratis di kembangkan oleh aji firlana 089531941653
 - install composer dengan menjalankan perintah "composer install"
 - jalankan perintah "php artisan migrate:fresh"
 - jalankan perintah "php artisan serve"
-#API
+# API
 url-login: http://nonton-film-laravel-10.test/api/login_api
 url-data-film: http://nonton-film-laravel-10.test/api/data_film
 # Donasi ke rek
