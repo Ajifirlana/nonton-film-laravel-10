@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Authcontroller;
+use App\Http\Controllers\Api\Filmcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::group([
     'middleware' => 'api'
 ], function ($router) {
     Route::post('login_api', [Authcontroller::class, 'login']);
+    Route::post('data_film', [Filmcontroller::class, 'data_film']);
 });
