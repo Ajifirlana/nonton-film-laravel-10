@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Validator;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-class AuthController extends Controller
+
+class Authcontroller extends Controller
 {
- 
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);

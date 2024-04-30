@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\Authcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => 'api'
 ], function ($router) {
-    Route::post('login_api', [AuthController::class, 'login']);
+    Route::post('login_api', [Authcontroller::class, 'login']);
 });
