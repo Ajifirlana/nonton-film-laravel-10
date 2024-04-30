@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Authcontroller;
 use App\Http\Controllers\Api\Filmcontroller;
+use App\Http\Controllers\Api\KategoriController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,6 @@ Route::group([
     'middleware' => 'api'
 ], function ($router) {
     Route::post('login_api', [Authcontroller::class, 'login']);
+    Route::post('kategori', [KategoriController::class, 'kategori']);
     Route::post('data_film', [Filmcontroller::class, 'data_film']);
 });
