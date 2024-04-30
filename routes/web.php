@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\KategoriController;
@@ -53,3 +52,5 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('/data_video', 'video')->name('video');
     Route::get('/play/{slug}', 'play')->name('play');
  });
+
+ 

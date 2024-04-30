@@ -24,7 +24,7 @@
                             </div>
                             <div class="card-body">
                                 <form action="{{url('proses_login')}}" method="POST" id="logForm">
-                                    {{ csrf_field() }}
+                                        @csrf
                                     <div class="form-group">
                                         @error('login_gagal')
                                             {{-- <span class="invalid-feedback" role="alert">

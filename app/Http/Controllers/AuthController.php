@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 class AuthController extends Controller
@@ -11,23 +12,44 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function login()
+    public function login(Request $request) // Menambahkan $request sebagai parameter
     {
-        $credentials = request(['email', 'password']);
+        //set validation
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required',
+            'password'  => 'required'
+        ]);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        //if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
 
-        return $this->respondWithToken($token);
+        //get credentials from request
+        $credentials = $request->only('email', 'password');
+
+        //if auth failed
+        if(!$token = auth()->guard('api')->attempt($credentials)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email atau Password Anda salah'
+            ], 401);
+        }
+
+        //if auth success
+        return response()->json([
+            'success' => true,
+            'user'    => auth()->guard('api')->user(),    
+            'token'   => $token   
+        ], 200);
     }
     
-       protected function respondWithToken($token)
-       {
-           return response()->json([
-               'access_token' => $token,
-               'token_type' => 'bearer',
-               'expires_in' => auth()->factory()->getTTL() * 60
-           ]);
-       }
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
 }
