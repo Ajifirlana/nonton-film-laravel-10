@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\FilmTerbaru;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -23,6 +25,12 @@ class DashboardController extends Controller
         $data['judul_halaman'] = "Data Video";
        return view('backend.video.index',$data);
     }
+    public function tambah_video()
+    {
+        $data['judul_halaman'] = "Tambah Video";
+        $data['kategori']= Kategori::get();
+       return view('backend.video.tambah_video',$data);
+    }
     public function play($slug)
     {
         $data['row'] = FilmTerbaru::where('slug', $slug)->firstOrFail();
@@ -33,18 +41,34 @@ class DashboardController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store_video(Request $request)
     {
-        //
-    }
+        
+        if ($request->hasFile('url_video')) {
+            $fileName = time() . '.' . $request->file('url_video')->extension();  
+        
+            // Store the file
+            $filePath = $request->file('url_video')->storeAs('film', $fileName);
+        
+            // Save metadata to the database
+            $fileModel = new FilmTerbaru();
+            $fileModel->name = $fileName;
+            $fileModel->path = $filePath;
+            $fileModel->save();
+        
+            return back()
+                ->with('success', 'You have successfully uploaded the file.');
+        } else {
+            // Handle the case when no file is uploaded
+            return back()
+                ->with('error', 'No file uploaded.');
+        }
+         }
 
     /**
      * Display the specified resource.

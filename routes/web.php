@@ -50,6 +50,8 @@ Route::controller(LoginController::class)->group(function() {
 Route::controller(DashboardController::class)->group(function() {
     Route::get('/dashboard', 'index')->name('index'); 
     Route::get('/data_video', 'video')->name('video');
+    Route::get('/tambah_video', 'tambah_video')->name('tambah_video');
+    Route::post('/store_video', 'store_video')->name('store_video');
     Route::get('/play/{slug}', 'play')->name('play');
  });
 

@@ -9,6 +9,8 @@
               
               <!-- /.card-header -->
               <div class="card-body">
+               <a href="{{url('tambah_video')}}"><button class="btn btn-primary">Tambah</button></a>
+
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
