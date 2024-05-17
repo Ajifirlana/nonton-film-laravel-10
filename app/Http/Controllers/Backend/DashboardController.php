@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\FilmTerbaru;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 class DashboardController extends Controller
 {
     /**
@@ -48,26 +46,29 @@ class DashboardController extends Controller
      */
     public function store_video(Request $request)
     {
+        if ($request->hasFile('file')) {
+            $fileName = time() . '.' . $request->file('file')->extension();  
         
-        if ($request->hasFile('url_video')) {
-            $fileName = time() . '.' . $request->file('url_video')->extension();  
-        
-            // Store the file
-            $filePath = $request->file('url_video')->storeAs('film', $fileName);
-        
-            // Save metadata to the database
+            $request->file->move(public_path('film'), $fileName);
+     
             $fileModel = new FilmTerbaru();
-            $fileModel->name = $fileName;
-            $fileModel->path = $filePath;
+            $fileModel->judul_film = $request->judul_film;
+            $fileModel->id_kategori = $request->id_kategori;
+            $fileModel->url_video = $fileName;
+            $fileModel->slug = str_replace(' ','-',$request->judul_film) ;
             $fileModel->save();
-        
+     
+
             return back()
-                ->with('success', 'You have successfully uploaded the file.');
-        } else {
-            // Handle the case when no file is uploaded
-            return back()
-                ->with('error', 'No file uploaded.');
+                ->with('success', 'file berhasil di upload.');
         }
+        else {
+            
+            return back()
+                ->with('error', 'file gagal di upload.');
+        }
+        
+        
          }
 
     /**

@@ -6,7 +6,22 @@
         <div class="card card-default">
           <div class="card-header">
             
+          <script>
+        // Display success message if it exists in the session
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                alert('{{ session('success') }}');
+            @endif
 
+            @if ($errors->any())
+                let errorMessages = '';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '{{ $error }}\n';
+                @endforeach
+                alert(errorMessages);
+            @endif
+        });
+    </script>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -33,9 +48,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>ID Kategori</label>
-                  <select class="form-control select2" style="width: 100%;">
+                  <select name="id_kategori" class="form-control select2" style="width: 100%;">
                   @foreach($kategori as $kat)
-                    <!-- <option selected="selected">Alabama</option> -->
                     <option value="{{$kat->id}}">{{$kat->nama}}</option>
                    
                     @endforeach
@@ -48,7 +62,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>File</label>
-                 <input type="file" class="form-control" placeholder="file anda" name="url_video" >
+                 <input type="file" class="form-control" placeholder="file anda" name="file" >
                 </div>
                 
               </div> 
