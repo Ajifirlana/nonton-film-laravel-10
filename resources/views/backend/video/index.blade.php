@@ -24,7 +24,10 @@
                       
                         <tr><td>{{$row->judul_film}}</td>
                     <td>{{$row->id_kategori}}</td>
-                    <td><a href="{{url('play/'.$row->slug)}}" target="_blank">Play</a> </td>
+                    <td>
+                    <a href="{{ url('edit_video/' . $row->id) }}" class="btn btn-success" role="button">Edit</a>
+
+                    <a href="{{ url('play/' . $row->slug) }}" class="btn btn-primary" target="_blank" role="button">Play</a>
                     </tr>  @endforeach
                   
                  

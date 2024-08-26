@@ -29,6 +29,32 @@ class DashboardController extends Controller
         $data['kategori']= Kategori::get();
        return view('backend.video.tambah_video',$data);
     }
+    public function edit_video($id)
+    {
+        $data['kategori']= Kategori::get();
+        $data['row'] = FilmTerbaru::findOrFail($id);
+        $data['judul_halaman'] =$data['row']->judul_film;
+        return view('backend.video.edit_video',$data);
+    }
+    public function actupdateVideo(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'judul_film' => 'required|string|max:255',
+            'id_kategori' => 'required|string|max:255',
+            // Add more validation rules as needed
+        ]);
+
+        // Find the video and update it
+        $video = FilmTerbaru::findOrFail($id);
+        $video->judul_film = $request->input('judul_film');
+        $video->id_kategori = $request->input('id_kategori');
+        // Update more fields as needed
+        $video->save();
+
+        // Redirect back or to another page with a success message
+        return redirect('data_video')->with('success', 'Video updated successfully!');
+    }
     public function play($slug)
     {
         $data['row'] = FilmTerbaru::where('slug', $slug)->firstOrFail();
