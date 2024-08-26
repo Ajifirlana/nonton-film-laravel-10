@@ -15,3 +15,6 @@ website nonton film gratis di kembangkan oleh aji firlana 089531941653
 BANK PERMATA
 9933738326
   a.n AJI FIRLANA
+BANK BNI
+1059724825
+  a.n AJI FIRLANA
