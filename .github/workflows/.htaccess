@@ -1,0 +1,5 @@
+# Melindungi folder dengan autentikasi dasar
+AuthType Basic
+AuthName "Restricted Access"
+AuthUserFile /path/to/.htpasswd
+Require valid-user
