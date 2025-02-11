@@ -29,6 +29,9 @@ jobs:
           php artisan view:clear
           php artisan storage:link
 
+      - name: Set directory permissions for sessions
+        run: chmod -R 775 storage/framework/sessions 
+        
       - name: Directory Permissions (production)
         run: chmod -R 775 storage bootstrap/cache
 
