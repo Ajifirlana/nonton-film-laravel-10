@@ -37,7 +37,7 @@ jobs:
           server-dir: /public_html/nonton-film-laravel-10/
 
       - name: Run migrations (optional)
-        run: php artisan migrate --force
+        run: php artisan migrate:fresh
       - name: Set up authentication for Composer
         run: |
           echo '{"github-oauth": {"github.com": "${{ secrets.TOKEN }}"}}' > ~/.composer/auth.json
