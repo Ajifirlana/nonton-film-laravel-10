@@ -19,7 +19,9 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer dump-autoload
+        run: |
+          composer install
+          composer dump-autoload
 
       - name: Run Artisan Commands
         run: |
