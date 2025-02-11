@@ -20,6 +20,7 @@ return [
 
     'driver' => env('SESSION_DRIVER', 'file'),
 
+    'file' => env('SESSION_FILE_PATH', storage_path('framework/sessions')),
     /*
     |--------------------------------------------------------------------------
     | Session Lifetime
