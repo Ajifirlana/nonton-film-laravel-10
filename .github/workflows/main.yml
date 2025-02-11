@@ -1,8 +1,10 @@
 name: Deploy Laravel Project on push
+
 on:
   push:
     branches:
       - main
+
 jobs:
   web-deploy:
     name: Deploy
@@ -11,13 +13,14 @@ jobs:
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
 
-      - uses: actions/setup-node@v3  # Versi stabil
+      - uses: actions/setup-node@v3  # Use stable version
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      
+
       - name: Install Dependencies
         run: composer install --no-dev --prefer-dist --ignore-platform-reqs
+
       - name: Run Artisan Commands
         run: |
           php artisan config:clear
@@ -26,18 +29,13 @@ jobs:
           php artisan view:clear
           php artisan storage:link
 
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
+      - name: Directory Permissions (production)
+        run: chmod -R 775 storage bootstrap/cache
+
       - name: Generate key
         run: php artisan key:generate
 
-      - name: Generate storage link
-        run: php artisan storage:link
-
-      - name: Directory Permissions
-        run: chmod -R 775 storage bootstrap/cache
-
-      - name: 📂 Sync files
+      - name: 📂 Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -46,8 +44,8 @@ jobs:
           server-dir: /public_html/nonton-film-laravel-10/
 
       - name: Run migrations (optional)
-        run: php artisan migrate:fresh
+        run: php artisan migrate --force  # Use --force in production to prevent accidental confirmation prompts
+
       - name: Set up authentication for Composer
         run: |
           echo '{"github-oauth": {"github.com": "${{ secrets.TOKEN }}"}}' > ~/.composer/auth.json
-    
