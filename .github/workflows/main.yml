@@ -15,7 +15,7 @@ jobs:
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
+      
       - name: Install Dependencies
         run: composer install --no-dev --prefer-dist --ignore-platform-reqs
 
@@ -38,3 +38,7 @@ jobs:
 
       - name: Run migrations (optional)
         run: php artisan migrate --force
+      - name: Set up authentication for Composer
+        run: |
+          echo '{"github-oauth": {"github.com": "${{ secrets.TOKEN }}"}}' > ~/.composer/auth.json
+    
