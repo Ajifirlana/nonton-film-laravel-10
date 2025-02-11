@@ -19,7 +19,7 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer install --no-dev --prefer-dist --ignore-platform-reqs
+        run: composer install
 
       - name: Run Artisan Commands
         run: |
