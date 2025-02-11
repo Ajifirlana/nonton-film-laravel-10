@@ -1,20 +1,40 @@
+name: Deploy Laravel Project on push
 on:
   push:
     branches:
       - main
-name: 🚀 Deploy website
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      with:
-        server: ${{ secrets.FTP_SERVER }}        # Pastikan ini diatur di Secrets
-        username: ${{ secrets.USERNAME }}        # Pastikan ini diatur di Secrets
-        password: ${{ secrets.PASSWORD }}        # Pastikan ini diatur di Secrets
-        server-dir: /public_html/nonton-film-laravel-10/               # Periksa apakah direktori ini ada di server
+      - name: Get the latest code
+        uses: actions/checkout@v2.3.2
+
+      - uses: actions/setup-node@v3  # Versi stabil
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Dependencies
+        run: composer install --no-dev --prefer-dist --ignore-platform-reqs
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Generate storage link
+        run: php artisan storage:link
+
+      - name: Directory Permissions
+        run: chmod -R 775 storage bootstrap/cache
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          server-dir: /public_html/nonton-film-laravel-10/
+
+      - name: Run migrations (optional)
+        run: php artisan migrate --force
