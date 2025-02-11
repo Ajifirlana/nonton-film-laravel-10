@@ -19,7 +19,7 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer install
+        run: composer update
 
       - name: Run Artisan Commands
         run: |
@@ -28,7 +28,7 @@ jobs:
           php artisan route:clear
           php artisan view:clear
           php artisan storage:link
-          php artisan session:clear
+
       - name: Directory Permissions (production)
         run: chmod -R 775 storage bootstrap/cache
 
